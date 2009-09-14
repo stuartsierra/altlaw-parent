@@ -40,7 +40,7 @@
         <version>1.0-20090914.093526-69</version>
       </dependency>
       <dependency>
-        <groupId>org.clojure</groupId>
+        <groupId>org.altlaw</groupId>
         <artifactId>swank-clojure</artifactId>
         <version>1.1-SNAPSHOT</version>
       </dependency>
