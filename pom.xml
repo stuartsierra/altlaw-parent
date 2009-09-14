@@ -1,0 +1,82 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.altlaw</groupId>
+  <artifactId>altlaw-parent</artifactId>
+  <packaging>pom</packaging>
+  <version>6.0.0-SNAPSHOT</version>
+  <name>AltLaw Parent Container Project</name>
+  <url>http://lawcommons.org/</url>
+
+  <repositories>
+    <repository>
+      <!-- Contains clojure-lang & clojure-contrib snapshots -->
+      <id>formos</id>
+      <name>Formos Software snapshot repository</name>
+      <url>http://tapestry.formos.com/maven-snapshot-repository</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>altlaw-dev</id>
+      <url>http://dev.altlaw.org/maven2</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.clojure</groupId>
+        <artifactId>clojure-lang</artifactId>
+        <version>1.1.0-alpha-20090914.093042-48</version>
+      </dependency>
+      <dependency>
+        <groupId>org.clojure</groupId>
+        <artifactId>clojure-contrib</artifactId>
+        <version>1.0-20090914.093526-69</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <distributionManagement>
+    <repository>
+      <id>altlaw-dev</id>
+      <url>scp://dev.altlaw.org/app/altlaw_dev/www/maven2</url>
+    </repository>
+  </distributionManagement>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <configuration>
+            <source>1.5</source>
+            <target>1.5</target>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-ssh</artifactId>
+        <version>1.0-beta-2</version>
+      </extension>
+    </extensions>
+  </build>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>codehaus</id>
+      <name>Codehaus Maven Plugin Repository</name>
+      <url>http://repository.codehaus.org/org/codehaus/mojo</url>
+    </pluginRepository>
+  </pluginRepositories>
+</project>
