@@ -122,5 +122,12 @@
       <name>Codehaus Maven Plugin Repository</name>
       <url>http://repository.codehaus.org/org/codehaus/mojo</url>
     </pluginRepository>
+    <pluginRepository>
+      <id>altlaw-dev</id>
+      <url>http://dev.altlaw.org/maven2</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </pluginRepository>
   </pluginRepositories>
 </project>
