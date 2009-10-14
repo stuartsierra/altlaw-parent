@@ -110,9 +110,9 @@
           </configuration>
         </plugin>
         <plugin>
-          <groupId>org.altlaw</groupId>
+          <groupId>com.theoryinpractise</groupId>
           <artifactId>clojure-maven-plugin</artifactId>
-          <version>1.1-SNAPSHOT</version>
+          <version>1.1</version>
           <configuration>
             <testScript>src/scripts/runtests.clj</testScript>
           </configuration>
