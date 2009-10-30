@@ -11,6 +11,9 @@
   <properties>
     <restlet.version>1.1.1</restlet.version>
     <jruby.version>1.4.0RC1</jruby.version>
+    <sesame.version>2.2.4</sesame.version>
+    <aduna.appbase.version>3.4.1</aduna.appbase.version>
+    <slf4j.version>1.5.0</slf4j.version>
   </properties>
 
   <repositories>
@@ -27,6 +30,11 @@
       <id>maven-restlet</id>
       <name>Public online Restlet repository</name>
       <url>http://maven.restlet.org</url>
+    </repository>
+    <repository>
+      <id>aduna-software</id>
+      <name>Aduna Software Sesame release repository</name>
+      <url>http://repo.aduna-software.org/maven2/releases</url>
     </repository>
     <repository>
       <id>altlaw-dev</id>
@@ -60,6 +68,41 @@
 
       <!-- Apache Commons dependencies -->
       <dependency>
+        <groupId>commons-lang</groupId>
+        <artifactId>commons-lang</artifactId>
+        <version>2.4</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-exec</groupId>
+        <artifactId>commons-exec</artifactId>
+        <version>1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-logging-api</groupId>
+        <artifactId>commons-logging-api</artifactId>
+        <version>1.1</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-logging</groupId>
+        <artifactId>commons-logging</artifactId>
+        <version>1.1.1</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-cli</groupId>
+        <artifactId>commons-cli</artifactId>
+        <version>1.1</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-dbcp</groupId>
+        <artifactId>commons-dbcp</artifactId>
+        <version>1.2.2</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-fileupload</groupId>
+        <artifactId>commons-fileupload</artifactId>
+        <version>1.2.1</version>
+      </dependency>
+      <dependency>
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
         <version>1.4</version>
@@ -68,6 +111,22 @@
         <groupId>commons-codec</groupId>
         <artifactId>commons-codec</artifactId>
         <version>1.4</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-httpclient</groupId>
+        <artifactId>commons-httpclient</artifactId>
+        <version>3.1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+          <exclusion>
+            <!-- httpclient includes older codec -->
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
 
       <!-- JRuby dependencies -->
@@ -107,6 +166,323 @@
         <groupId>com.noelios.restlet</groupId>
         <artifactId>com.noelios.restlet.ext.servlet</artifactId>
         <version>${restlet.version}</version>
+      </dependency>
+
+      <!-- Logging: SLF4J (used by Sesame, among others) -->
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>${slf4j.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-jdk14</artifactId>
+        <version>${slf4j.version}</version>
+        <scope>runtime</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>jcl104-over-slf4j</artifactId>
+        <version>${slf4j.version}</version>
+        <scope>runtime</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>log4j-over-slf4j</artifactId>
+        <version>${slf4j.version}</version>
+        <scope>runtime</scope>
+      </dependency>
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>0.9.9</version>
+        <scope>runtime</scope>
+      </dependency>
+
+      <!-- OpenRDF modules -->
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-model</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-rio-api</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-rio-ntriples</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-rio-n3</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-rio-rdfxml</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-rio-trix</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-rio-turtle</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-rio-trig</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-query</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-queryalgebra-model</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-queryalgebra-evaluation</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-queryparser-api</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-queryparser-serql</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-queryparser-sparql</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-queryresultio-api</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-queryresultio-binary</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-queryresultio-sparqljson</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-queryresultio-sparqlxml</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-queryresultio-text</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-repository-api</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-repository-manager</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-repository-http</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-repository-sail</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-repository-event</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-repository-dataset</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-repository-contextaware</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-http-protocol</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-http-client</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-sail-api</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-sail-inferencer</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-sail-memory</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-sail-nativerdf</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-sail-rdbms</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-runtime</artifactId>
+        <version>${sesame.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-http-server</artifactId>
+        <version>${sesame.version}</version>
+        <type>war</type>
+      </dependency>
+      <dependency>
+        <groupId>org.openrdf.sesame</groupId>
+        <artifactId>sesame-http-server-spring</artifactId>
+        <version>${sesame.version}</version>
+        <scope>runtime</scope>
+      </dependency>
+
+      <!-- Aduna Appbase (Sesame) -->
+      <dependency>
+        <groupId>info.aduna.appbase</groupId>
+        <artifactId>aduna-appbase-core</artifactId>
+        <version>${aduna.appbase.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.aduna.appbase</groupId>
+        <artifactId>aduna-appbase-logging-file</artifactId>
+        <version>${aduna.appbase.version}</version>
+        <scope>runtime</scope>
+      </dependency>
+      <dependency>
+        <groupId>info.aduna.appbase</groupId>
+        <artifactId>aduna-appbase-webapp-base-core</artifactId>
+        <version>${aduna.appbase.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>info.aduna.appbase</groupId>
+        <artifactId>aduna-appbase-webapp-system</artifactId>
+        <version>${aduna.appbase.version}</version>
+        <type>war</type>
+        <scope>runtime</scope>
+      </dependency>
+      <dependency>
+        <groupId>info.aduna.appbase</groupId>
+        <artifactId>aduna-appbase-webapp-system-core</artifactId>
+        <version>${aduna.appbase.version}</version>
+      </dependency>
+
+      <!-- Aduna Commons (Sesame) -->
+      <dependency>
+        <groupId>info.aduna.commons</groupId>
+        <artifactId>aduna-commons-collections</artifactId>
+        <version>2.3</version>
+      </dependency>
+      <dependency>
+        <groupId>info.aduna.commons</groupId>
+        <artifactId>aduna-commons-concurrent</artifactId>
+        <version>2.2</version>
+      </dependency>
+      <dependency>
+        <groupId>info.aduna.commons</groupId>
+        <artifactId>aduna-commons-i18n</artifactId>
+        <version>1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>info.aduna.commons</groupId>
+        <artifactId>aduna-commons-io</artifactId>
+        <version>2.4</version>
+      </dependency>
+      <dependency>
+        <groupId>info.aduna.commons</groupId>
+        <artifactId>aduna-commons-iteration</artifactId>
+        <version>2.3</version>
+      </dependency>
+      <dependency>
+        <groupId>info.aduna.commons</groupId>
+        <artifactId>aduna-commons-lang</artifactId>
+        <version>2.3</version>
+      </dependency>
+      <dependency>
+        <groupId>info.aduna.commons</groupId>
+        <artifactId>aduna-commons-net</artifactId>
+        <version>2.2</version>
+      </dependency>
+      <dependency>
+        <groupId>info.aduna.commons</groupId>
+        <artifactId>aduna-commons-net-http-server-embedded</artifactId>
+        <version>2.1</version>
+      </dependency>
+      <dependency>
+        <groupId>info.aduna.commons</groupId>
+        <artifactId>aduna-commons-text</artifactId>
+        <version>2.2</version>
+      </dependency>
+      <dependency>
+        <groupId>info.aduna.commons</groupId>
+        <artifactId>aduna-commons-webapp-core</artifactId>
+        <version>2.4</version>
+      </dependency>
+      <dependency>
+        <groupId>info.aduna.commons</groupId>
+        <artifactId>aduna-commons-xml</artifactId>
+        <version>2.2</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
